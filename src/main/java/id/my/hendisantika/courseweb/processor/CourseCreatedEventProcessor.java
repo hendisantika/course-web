@@ -1,5 +1,6 @@
 package id.my.hendisantika.courseweb.processor;
 
+import id.my.hendisantika.courseweb.event.CourseCreated;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
