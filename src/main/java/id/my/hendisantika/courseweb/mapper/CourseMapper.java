@@ -2,6 +2,7 @@ package id.my.hendisantika.courseweb.mapper;
 
 import id.my.hendisantika.courseweb.course.Category;
 import id.my.hendisantika.courseweb.course.Course;
+import id.my.hendisantika.courseweb.dto.CourseDto;
 import id.my.hendisantika.courseweb.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
