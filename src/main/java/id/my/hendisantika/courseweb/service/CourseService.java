@@ -1,11 +1,15 @@
 package id.my.hendisantika.courseweb.service;
 
+import id.my.hendisantika.courseweb.command.CreateCourse;
+import id.my.hendisantika.courseweb.course.Course;
+import id.my.hendisantika.courseweb.event.CourseCreated;
 import id.my.hendisantika.courseweb.mapper.CourseMapper;
 import id.my.hendisantika.courseweb.repository.CourseRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,4 +32,24 @@ public class CourseService {
 
     private final CourseMapper mapper;
 
+    /**
+     * Creates a new course from the given 'CreateCourse' command.
+     *
+     * @param command the command.
+     * @return an instance of the saved course.
+     */
+    public Course createCourse(CreateCourse command) {
+        Assert.notNull(command, "The given command must not be null!");
+
+        log.debug("Try to create new course {} requested by {}.", command.getTitle(), command.getCreatedByUserId());
+
+        Course course = this.mapper.commandToEntity(command);
+
+        Course savedCourse = this.courseRepository.save(course);
+        log.debug("Course {} saved to database. Created timestamp {}", savedCourse.getId(), savedCourse.getDateCreated());
+
+        this.publisher.publishEvent(new CourseCreated(savedCourse));
+
+        return savedCourse;
+    }
 }
