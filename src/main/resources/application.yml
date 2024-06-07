@@ -1,5 +1,5 @@
 server:
-  port: 4500
+  port: 8080
 
 spring:
   application.nam: course-web
