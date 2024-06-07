@@ -41,4 +41,14 @@ public class CourseMapper {
         return course;
     }
 
+    public CourseDto entityToDto(Course course) {
+        log.debug("Convert 'Course' entity to DTO. ['id': {}, 'title', {}]",
+                course.getId(), course.getTitle());
+
+        CourseDto dto = modelMapper.map(course, CourseDto.class);
+
+        log.debug("DTO '{}' initialized with id {}", course.getTitle(), course.getId());
+        return dto;
+    }
+
 }
