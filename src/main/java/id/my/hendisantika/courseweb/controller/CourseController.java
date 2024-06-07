@@ -2,6 +2,7 @@ package id.my.hendisantika.courseweb.controller;
 
 import id.my.hendisantika.courseweb.command.CreateCourse;
 import id.my.hendisantika.courseweb.course.Course;
+import id.my.hendisantika.courseweb.dto.CourseDto;
 import id.my.hendisantika.courseweb.event.CourseCreated;
 import id.my.hendisantika.courseweb.mapper.CourseMapper;
 import id.my.hendisantika.courseweb.service.CategoryService;
@@ -12,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,4 +56,10 @@ public class CourseController {
         }
     }
 
+    @CrossOrigin()
+    @GetMapping(value = "/course/sse", produces = "text/event-stream;charset=UTF-8")
+    public Flux<CourseDto> stream() {
+        log.info("Start listening to the course collection.");
+        return this.events.map(event -> this.mapper.entityToDto((Course) event.getSource()));
+    }
 }
