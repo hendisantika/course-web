@@ -2,6 +2,7 @@ package id.my.hendisantika.courseweb.controller;
 
 import id.my.hendisantika.courseweb.command.CreateCourse;
 import id.my.hendisantika.courseweb.course.Course;
+import id.my.hendisantika.courseweb.dto.CategoryDto;
 import id.my.hendisantika.courseweb.dto.CourseDto;
 import id.my.hendisantika.courseweb.event.CourseCreated;
 import id.my.hendisantika.courseweb.mapper.CourseMapper;
@@ -72,6 +73,20 @@ public class CourseController {
         try {
             List<CourseDto> courses = this.courseService.getCourses();
             return ResponseEntity.ok().body(courses);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @CrossOrigin()
+    @GetMapping(value = "/course/category", produces = "application/json")
+    public ResponseEntity<List<CategoryDto>> getCategories() {
+        log.info("Fetch all categories.");
+
+        try {
+            List<CategoryDto> categories = this.categoryService.getCategories();
+            return ResponseEntity.ok().body(categories);
         } catch (Exception e) {
             log.error(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
