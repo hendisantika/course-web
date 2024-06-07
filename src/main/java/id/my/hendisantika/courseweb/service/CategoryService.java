@@ -1,6 +1,7 @@
 package id.my.hendisantika.courseweb.service;
 
 import id.my.hendisantika.courseweb.course.Category;
+import id.my.hendisantika.courseweb.dto.CategoryDto;
 import id.my.hendisantika.courseweb.mapper.CategoryMapper;
 import id.my.hendisantika.courseweb.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -8,7 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -47,5 +50,16 @@ public class CategoryService {
 
         log.debug("Category {} with id {} was found.", category.getTitle(), id);
         return category;
+    }
+
+    /**
+     * Fetches all categories.
+     *
+     * @return a list of categories.
+     */
+    public List<CategoryDto> getCategories() {
+        return this.categoryRepository.findAll()
+                .stream().map(this.mapper::entityToDto)
+                .collect(Collectors.toList());
     }
 }
