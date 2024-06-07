@@ -6,10 +6,10 @@ import id.my.hendisantika.courseweb.dto.CategoryDto;
 import id.my.hendisantika.courseweb.dto.CourseDto;
 import id.my.hendisantika.courseweb.event.CourseCreated;
 import id.my.hendisantika.courseweb.mapper.CourseMapper;
+import id.my.hendisantika.courseweb.processor.CourseCreatedEventProcessor;
 import id.my.hendisantika.courseweb.service.CategoryService;
 import id.my.hendisantika.courseweb.service.CourseService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,12 +37,24 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CourseController {
     private final CourseService courseService;
     private final CategoryService categoryService;
     private final CourseMapper mapper;
     private final Flux<CourseCreated> events;
+
+
+    public CourseController(CourseService courseService,
+                            CategoryService categoryService,
+                            CourseCreatedEventProcessor processor,
+                            CourseMapper mapper) {
+
+        this.courseService = courseService;
+        this.categoryService = categoryService;
+        this.mapper = mapper;
+        this.events = Flux.create(processor).share();
+    }
 
     @CrossOrigin
     @PostMapping("/course")
