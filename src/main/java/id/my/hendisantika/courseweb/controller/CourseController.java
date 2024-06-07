@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -61,5 +62,19 @@ public class CourseController {
     public Flux<CourseDto> stream() {
         log.info("Start listening to the course collection.");
         return this.events.map(event -> this.mapper.entityToDto((Course) event.getSource()));
+    }
+
+    @CrossOrigin()
+    @GetMapping(value = "/course", produces = "application/json")
+    public ResponseEntity<List<CourseDto>> getAllCourses() {
+        log.info("Fetch all courses.");
+
+        try {
+            List<CourseDto> courses = this.courseService.getCourses();
+            return ResponseEntity.ok().body(courses);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
