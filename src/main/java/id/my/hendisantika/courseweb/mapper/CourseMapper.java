@@ -1,5 +1,6 @@
 package id.my.hendisantika.courseweb.mapper;
 
+import id.my.hendisantika.courseweb.command.CreateCourse;
 import id.my.hendisantika.courseweb.course.Category;
 import id.my.hendisantika.courseweb.course.Course;
 import id.my.hendisantika.courseweb.dto.CourseDto;
