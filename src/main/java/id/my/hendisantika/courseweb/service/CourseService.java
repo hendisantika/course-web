@@ -2,6 +2,7 @@ package id.my.hendisantika.courseweb.service;
 
 import id.my.hendisantika.courseweb.command.CreateCourse;
 import id.my.hendisantika.courseweb.course.Course;
+import id.my.hendisantika.courseweb.dto.CourseDto;
 import id.my.hendisantika.courseweb.event.CourseCreated;
 import id.my.hendisantika.courseweb.mapper.CourseMapper;
 import id.my.hendisantika.courseweb.repository.CourseRepository;
@@ -10,6 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by IntelliJ IDEA.
@@ -51,5 +55,16 @@ public class CourseService {
         this.publisher.publishEvent(new CourseCreated(savedCourse));
 
         return savedCourse;
+    }
+
+    /**
+     * Fetches all courses.
+     *
+     * @return a list of courses.
+     */
+    public List<CourseDto> getCourses() {
+        return this.courseRepository.findAll()
+                .stream().map(this.mapper::entityToDto)
+                .collect(Collectors.toList());
     }
 }
