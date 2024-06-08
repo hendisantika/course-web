@@ -32,4 +32,13 @@ const Index = ({initialCourses}) => {
             eventSource = null;
         }
     }, [])
+
+    const courseList = courses.map(course => {
+        return <tr key={course.id}>
+            <td style={{whiteSpace: 'nowrap'}}>{course.title}</td>
+            <td>{course.categoryTitle}</td>
+            <td>{course.duration}</td>
+        </tr>
+    });
+
 }
