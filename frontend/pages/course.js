@@ -47,4 +47,8 @@ const NewCourse = ({categories, userId}) => {
             [name]: value
         }));
     }
+
+    const categoryOptions = categories.map(c => {
+        return <option key={c.id} value={c.id}>{c.title}</option>
+    });
 }
