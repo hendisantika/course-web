@@ -23,3 +23,26 @@ const sseMiddleware = (req, res, next) => {
 
     next();
 }
+
+const stream = async (req, res) => {
+    console.log("connect to sse stream");
+
+    let eventSource = new EventSource(`${API_HOST}/course/sse`);
+    eventSource.onopen = (e) => {
+        console.log('listen to sse endpoint now', e)
+    };
+    eventSource.onmessage = (e) => {
+        res.flushData(e.data);
+    };
+    eventSource.onerror = (e) => {
+        console.log('error', e)
+    };
+
+    // close connection (detach subscriber)
+    res.on('close', () => {
+        console.log("close connection...");
+        eventSource.close();
+        eventSource = null;
+        res.end();
+    });
+}
