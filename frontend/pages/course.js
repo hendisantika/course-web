@@ -18,4 +18,23 @@ const NewCourse = ({categories, userId}) => {
     const [saved, setSaved] = useState(false);
     const [error, setError] = useState(null);
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        await fetch('/api/course', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                course: course,
+            }),
+        }).then(res => {
+            if (res.status === 200) {
+                setSaved(true);
+            } else {
+                setError('Error: ' + res.status + ' :: ' + res.statusText);
+            }
+        });
+    }
 }
