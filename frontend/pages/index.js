@@ -74,3 +74,15 @@ const Index = ({initialCourses}) => {
         </div>
     )
 }
+
+export const getServerSideProps = async () => {
+    const res = await fetch(`${API_HOST}/course`);
+    const data = await res.json();
+    return {
+        props: {
+            initialCourses: data
+        }
+    }
+};
+
+export default Index;
