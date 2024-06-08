@@ -85,3 +85,16 @@ const NewCourse = ({categories, userId}) => {
 
     </div>
 }
+
+export const getServerSideProps = async () => {
+    const res = await fetch(`${API_HOST}/course/category`);
+    const data = await res.json();
+    return {
+        props: {
+            categories: data,
+            userId: uuid() // Fake user id
+        }
+    }
+}
+
+export default NewCourse;
