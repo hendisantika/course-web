@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 
 import getConfig from 'next/config';
+import Link from "next/link";
+import Head from "next/head";
 
 const {publicRuntimeConfig} = getConfig();
 const {API_HOST} = publicRuntimeConfig;
@@ -41,4 +43,34 @@ const Index = ({initialCourses}) => {
         </tr>
     });
 
+    return (
+        <div>
+            <Head>
+                <title>Course Service Example</title>
+                <link rel="icon" href="/favicon.ico"/>
+            </Head>
+
+            <div>
+                <h1>Courses</h1>
+                <Link href="/course">
+                    <button>
+                        <a>New Course</a>
+                    </button>
+                </Link>
+
+                <table>
+                    <thead>
+                    <tr>
+                        <th width="40%">Title</th>
+                        <th width="30%">Category</th>
+                        <th width="30%">Duration (minutes)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {courseList}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    )
 }
