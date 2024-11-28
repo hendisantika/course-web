@@ -36,14 +36,12 @@ import java.util.UUID;
  */
 
 @Slf4j
-@RestController
-//@RequiredArgsConstructor
+@RestController("/api/courses")
 public class CourseController {
     private final CourseService courseService;
     private final CategoryService categoryService;
     private final CourseMapper mapper;
     private final Flux<CourseCreated> events;
-
 
     public CourseController(CourseService courseService,
                             CategoryService categoryService,
@@ -56,8 +54,8 @@ public class CourseController {
         this.events = Flux.create(processor).share();
     }
 
-    @CrossOrigin
-    @PostMapping("/course")
+    @CrossOrigin("*")
+    @PostMapping
     ResponseEntity<UUID> addCourse(@RequestBody @Valid CreateCourse command) {
         log.info("Create new course request received. [title: {}]", command.getTitle());
 
@@ -70,15 +68,15 @@ public class CourseController {
         }
     }
 
-    @CrossOrigin()
-    @GetMapping(value = "/course/sse", produces = "text/event-stream;charset=UTF-8")
+    @CrossOrigin("*")
+    @GetMapping(value = "/sse", produces = "text/event-stream;charset=UTF-8")
     public Flux<CourseDto> stream() {
         log.info("Start listening to the course collection.");
         return this.events.map(event -> this.mapper.entityToDto((Course) event.getSource()));
     }
 
-    @CrossOrigin()
-    @GetMapping(value = "/course", produces = "application/json")
+    @CrossOrigin("*")
+    @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         log.info("Fetch all courses.");
 
@@ -91,8 +89,8 @@ public class CourseController {
         }
     }
 
-    @CrossOrigin()
-    @GetMapping(value = "/course/category", produces = "application/json")
+    @CrossOrigin("*")
+    @GetMapping(value = "/category", produces = "application/json")
     public ResponseEntity<List<CategoryDto>> getCategories() {
         log.info("Fetch all categories.");
 

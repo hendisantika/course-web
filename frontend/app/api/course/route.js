@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import {NextResponse} from 'next/server';
 import EventSource from 'eventsource';
 
 const API_HOST = process.env.API_HOST;
@@ -9,7 +9,7 @@ export async function GET(request) {
 
   const stream = new ReadableStream({
       async start(controller) {
-          const eventSource = new EventSource(`${API_HOST}/course/sse`);
+          const eventSource = new EventSource(`${API_HOST}/api/courses/sse`);
 
           eventSource.onopen = (e) => {
               console.log('Connected to SSE endpoint', e);
@@ -49,7 +49,7 @@ export async function POST(request) {
   try {
       const course = await request.json();
 
-      const response = await fetch(`${API_HOST}/course`, {
+      const response = await fetch(`${API_HOST}/api/courses`, {
           method: 'POST',
           headers: {
               'Accept': 'application/json',

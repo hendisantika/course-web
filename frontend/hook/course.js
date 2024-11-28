@@ -1,13 +1,10 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import {useEffect, useState,} from "react";
 
 export const useCourseList = (initialCourses) => {
   const [courses, setCourses] = useState(initialCourses);
 
   useEffect(() => {
-    let eventSource = new EventSource(`/api/course`);
+      let eventSource = new EventSource(`/api/courses`);
     eventSource.onopen = (e) => {
         console.log('listen to api-sse endpoint', e)
     };
@@ -50,7 +47,7 @@ export const useCourseCreate = (categories, userId) => {
 
   const handleSubmit  = async (e) => {
       e.preventDefault();
-      await fetch('/api/course', {
+      await fetch('/api/courses', {
           method: 'POST',
           headers: {
               'Accept': 'application/json',
