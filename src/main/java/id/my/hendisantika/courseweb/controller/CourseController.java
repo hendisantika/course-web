@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -36,7 +37,9 @@ import java.util.UUID;
  */
 
 @Slf4j
-@RestController("/api/courses")
+@CrossOrigin
+@RestController
+@RequestMapping("/api/courses")
 public class CourseController {
     private final CourseService courseService;
     private final CategoryService categoryService;
@@ -54,7 +57,6 @@ public class CourseController {
         this.events = Flux.create(processor).share();
     }
 
-    @CrossOrigin("*")
     @PostMapping
     ResponseEntity<UUID> addCourse(@RequestBody @Valid CreateCourse command) {
         log.info("Create new course request received. [title: {}]", command.getTitle());
@@ -68,14 +70,12 @@ public class CourseController {
         }
     }
 
-    @CrossOrigin("*")
     @GetMapping(value = "/sse", produces = "text/event-stream;charset=UTF-8")
     public Flux<CourseDto> stream() {
         log.info("Start listening to the course collection.");
         return this.events.map(event -> this.mapper.entityToDto((Course) event.getSource()));
     }
 
-    @CrossOrigin("*")
     @GetMapping(value = "", produces = "application/json")
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         log.info("Fetch all courses.");
@@ -89,7 +89,6 @@ public class CourseController {
         }
     }
 
-    @CrossOrigin("*")
     @GetMapping(value = "/category", produces = "application/json")
     public ResponseEntity<List<CategoryDto>> getCategories() {
         log.info("Fetch all categories.");
