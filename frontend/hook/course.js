@@ -53,9 +53,7 @@ export const useCourseCreate = (categories, userId) => {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-              course: course,
-          }),
+          body: JSON.stringify(course),
       }).then(res => {
           if (res.status === 200) {
               setSaved(true);

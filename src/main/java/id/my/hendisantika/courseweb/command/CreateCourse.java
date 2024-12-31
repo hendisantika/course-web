@@ -22,7 +22,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CreateCourse {
     @NotNull
-    @Size(min = 5, max = 25, message = "The title must be between 5 and 25 characters long.")
+    @Size(min = 5, max = 50, message = "The title must be between 5 and 50 characters long.")
     private String title;
 
     @Size(max = 250, message = "The description must be a maximum of 250 characters long.")
