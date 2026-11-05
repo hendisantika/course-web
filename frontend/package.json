@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "dotenv": "^18.0.9",
-    "eventsource": "^1.0.7",
+    "eventsource": "^5.1.4",
     "next": "16.4.4",
     "next-connect": "^1.0.0",
     "react": "^19",
