@@ -1,5 +1,5 @@
 import {NextResponse} from 'next/server';
-import EventSource from 'eventsource';
+import {EventSource} from 'eventsource';
 
 const API_HOST = process.env.API_HOST;
 
