@@ -3,7 +3,7 @@
 [![Java CI with Maven](https://github.com/hendisantika/course-web/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/course-web/actions/workflows/maven.yml)
 ![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-6DB33F?logo=springboot)
-![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=nextdotjs)
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=nextdotjs)
 
 Course management web app: a Spring Boot REST + SSE backend (H2 in-memory database) with a Next.js frontend.
 
@@ -14,15 +14,15 @@ Course management web app: a Spring Boot REST + SSE backend (H2 in-memory databa
 | Backend  | Java 25, Spring Boot 4.1 (Web, WebFlux, Data JPA, Validation, Actuator)    |
 | Database | H2 (in-memory)                                                             |
 | Mapping  | ModelMapper, Lombok                                                        |
-| Frontend | Next.js 15, React 18                                                       |
-| CI/CD    | GitHub Actions (Maven build + dependency graph), Dependabot                |
+| Frontend | Next.js 16, React 19                                                       |
+| CI/CD    | GitHub Actions (backend + frontend build, dependency graph), Dependabot    |
 | Runtime  | Docker (`eclipse-temurin:25-jre-alpine`)                                   |
 
 ## Prerequisites
 
 - JDK 25
 - Maven 3.9+ (or use the bundled Maven Wrapper `./mvnw`)
-- Node.js 20+ and pnpm (for the frontend)
+- Node.js 20.9+ and pnpm (for the frontend)
 - Docker (optional)
 
 ## Things to do list
@@ -45,6 +45,15 @@ Course management web app: a Spring Boot REST + SSE backend (H2 in-memory databa
 ```
 
 The executable JAR is produced in `target/`.
+
+## Continuous Integration
+
+The [Java CI with Maven](.github/workflows/maven.yml) workflow runs on every push and pull request to `main`:
+
+| Job        | Steps                                                                                                  |
+|------------|--------------------------------------------------------------------------------------------------------|
+| `build`    | Build and test the backend with Maven on JDK 25, upload the JAR, submit the Maven dependency graph     |
+| `frontend` | Start the backend JAR (the `/course` page fetches categories while prerendering), then `pnpm install --frozen-lockfile` and `pnpm build` on Node.js 24 |
 
 ## Docker
 
