@@ -27,8 +27,8 @@ importers:
         specifier: ^19
         version: 19.3.1(react@19.3.1)
       uuid:
-        specifier: ^8.3.1
-        version: 8.3.2
+        specifier: ^14.0.3
+        version: 14.0.3
     devDependencies:
       eslint:
         specifier: ^8
@@ -1870,8 +1870,8 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  uuid@8.3.2:
-    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+  uuid@14.0.3:
+    resolution: {integrity: sha512-Sc5u1VVln93y1Xnz4R+CunOZc7R9LUcTmhj7Rc7Eg3HVcf7rVn2FOoa812fe0W8p3jD7xeoGSYbfqCGGH2B6xw==}
     hasBin: true
 
   which-boxed-primitive@1.0.2:
@@ -4150,7 +4150,7 @@ snapshots:
     dependencies:
       punycode: 2.3.1
 
-  uuid@8.3.2: {}
+  uuid@14.0.3: {}
 
   which-boxed-primitive@1.0.2:
     dependencies:
